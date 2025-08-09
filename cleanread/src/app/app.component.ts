@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import { UrlInputComponent } from './components/url-input/url-input.component';
@@ -14,6 +14,7 @@ import { Article } from './models/article.interface';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit {
+   @ViewChild(UrlInputComponent) urlInput!: UrlInputComponent;
   currentArticle: Article | null = null;
   isLoading: boolean = false;
   errorMessage: string = '';
@@ -44,22 +45,25 @@ export class AppComponent implements OnInit {
   onUrlSubmitted(url: string): void {
     this.isLoading = true;
     this.errorMessage = '';
+    this.urlInput.setLoading(true);
+    this.urlInput.setError('');  // clear error
     this.currentArticle = null;
 
     this.articleService.getArticle(url).subscribe({
       next: (article) => {
         this.currentArticle = article;
         this.isLoading = false;
-        // Scroll to reader view
+        this.urlInput.setLoading(false);
         setTimeout(() => {
-          document.querySelector('#reader-view')?.scrollIntoView({ 
-            behavior: 'smooth' 
-          });
+          document.querySelector('#reader-view')?.scrollIntoView({ behavior: 'smooth' });
         }, 100);
       },
       error: (error) => {
-        this.errorMessage = error.message;
+          this.errorMessage = error.message;
         this.isLoading = false;
+        this.urlInput.setError(error.message);
+        this.urlInput.setLoading(false);
+        
       }
     });
   }

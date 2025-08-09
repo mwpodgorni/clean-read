@@ -1,2 +1,10 @@
 /* Component-specific styles can be added here if needed */
-/* Most styling is handled by Tailwind CSS classes */ 
+/* Most styling is handled by Tailwind CSS classes */ .light-theme {
+  background-color: white;
+  color: black;
+}
+
+.dark-theme {
+  background-color: #222;
+  color: white;
+}

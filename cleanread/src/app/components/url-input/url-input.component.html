@@ -1,8 +1,11 @@
 <div class="w-full max-w-2xl mx-auto">
   <form (submit)="onSubmit($event)" class="space-y-4">
     <div class="space-y-2">
-      <label for="url-input" class="block text-sm font-medium text-gray-700 dark:text-gray-300">
-        Article URL
+      <label
+        for="url-input"
+        class="block text-sm font-medium text-gray-700 dark:text-gray-300"
+      >
+        Article URL {{ isLoading }}
       </label>
       <div class="relative">
         <input
@@ -14,7 +17,10 @@
           class="input-field pr-12"
           [disabled]="isLoading"
           autocomplete="url"
+          [class.light-theme]="theme === 'light'"
+          [class.dark-theme]="theme === 'dark'"
         />
+
         <button
           type="submit"
           [disabled]="isLoading || !url.trim()"
@@ -114,13 +120,9 @@
 
     <!-- Clear Button -->
     <div *ngIf="url && !isLoading" class="flex justify-center">
-      <button
-        type="button"
-        (click)="clearForm()"
-        class="btn-secondary text-sm"
-      >
+      <button type="button" (click)="clearForm()" class="btn-secondary text-sm">
         Clear
       </button>
     </div>
   </form>
-</div> 
+</div>

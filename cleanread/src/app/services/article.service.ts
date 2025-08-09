@@ -9,7 +9,8 @@ import { Article } from '../models/article.interface';
 })
 export class ArticleService {
   // Replace this with your actual Firebase function URL
-  private readonly apiUrl = 'https://your-firebase-function-url.cloudfunctions.net/scrapeArticle';
+  private readonly apiUrl = 'http://127.0.0.1:5001/cleanred-79d9e/us-central1/scrapeArticle';
+  // private readonly apiUrl = 'https://your-firebase-function-url.cloudfunctions.net/scrapeArticle';
 
   constructor(private http: HttpClient) {}
 
